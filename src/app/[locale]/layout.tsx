@@ -1,3 +1,4 @@
+import '@/app/globals.css';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { Metadata } from 'next';
