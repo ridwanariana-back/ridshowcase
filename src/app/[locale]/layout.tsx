@@ -1,24 +1,52 @@
+import { getMessages, getTranslations } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
-import '../globals.css';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  const isEn = locale === 'en';
+
+  return {
+    title: {
+      default: isEn ? 'ridshowcase — Personal Portfolio & App Showcase' : 'ridshowcase — Portofolio & Showcase Aplikasi',
+      template: '%s | ridshowcase',
+    },
+    description: isEn
+      ? 'Explore full-stack web applications, interactive projects, and modern digital creations built with Next.js, React, and Tailwind CSS.'
+      : 'Jelajahi koleksi proyek web full-stack, aplikasi interaktif, dan karya digital modern buatan saya.',
+    keywords: ['Portfolio', 'Next.js', 'React', 'Tailwind CSS', 'Web Developer', 'Full Stack', 'Showcase'],
+    authors: [{ name: 'Ridwan Ariana' }],
+    openGraph: {
+      title: 'ridshowcase — Portfolio & Web Showcase',
+      description: isEn
+        ? 'Explore full-stack web applications and modern digital creations.'
+        : 'Jelajahi koleksi proyek web full-stack dan karya digital modern.',
+      url: 'https://ridshowcase.vercel.app',
+      siteName: 'ridshowcase',
+      locale: locale === 'en' ? 'en_US' : 'id_ID',
+      type: 'website',
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!routing.locales.includes(locale as any)) notFound();
-
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="dark">
-      <body className="bg-slate-950 text-slate-100 min-h-screen antialiased flex flex-col">
+    <html lang={locale}>
+      <body>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

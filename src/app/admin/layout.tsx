@@ -4,6 +4,21 @@ import Link from 'next/link';
 import { logoutAdmin } from '@/app/actions/admin';
 import SubmitButton from '@/components/SubmitButton';
 import { LayoutDashboard, FolderKanban, ExternalLink } from 'lucide-react';
+import { Metadata } from 'next';
+
+// --- METADATA ADMIN LAYOUT ---
+export const metadata: Metadata = {
+  title: {
+    default: 'Admin Dashboard | ridshowcase',
+    template: '%s | Admin ridshowcase',
+  },
+  description: 'Admin Panel for managing portfolio projects in ridshowcase.',
+  // Mencegah mesin pencari (Google, Bing, dll) mengindeks halaman Admin
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function AdminRootLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
