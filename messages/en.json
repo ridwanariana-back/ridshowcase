@@ -1,0 +1,43 @@
+{
+  "Header": { "title": "ridshowcase", "subtitle": "Discover my web applications & projects" },
+  "Search": { "placeholder": "Search projects or tech stacks..." },
+  "Card": { "viewDetails": "View Details" },
+  "Detail": { "back": "Back to Projects", "techStack": "Tech Stack", "database": "Database", "liveDemo": "Live Demo", "contactMe": "Contact Me" },
+  "Pagination": { "previous": "Previous", "next": "Next", "page": "Page" }
+  ,
+  "Hero": {
+    "badge": "Portfolio & Showcase",
+    "title": "Crafting Web Experiences",
+    "subtitle": "Explore my collection of full-stack projects, interactive web apps, and digital creations.",
+    "scrollDown": "Scroll down to explore"
+  },
+  "Catalog": {
+    "title": "Projects Showcase",
+    "subAll": "Showing all projects created by me",
+    "subSearch": "Search results for \"{query}\"",
+    "count": "{count} Projects Found",
+    "empty": "No projects found matching your search."
+  },
+  "Search": {
+    "placeholder": "Search projects, tech stack (Next.js, Tailwind)..."
+  },
+  "Card": {
+    "viewDetails": "View Details"
+  },
+  "Detail": {
+    "back": "Back to Projects",
+    "techStack": "Tech Stack",
+    "database": "Database",
+    "liveDemo": "Live Demo",
+    "contactMe": "Contact Me"
+  },
+  "WhatsApp": {
+    "message": "Hello, is the web application \"{title}\" ({url}) available for review or inquiry?"
+  },
+  "Pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page"
+  }
+
+}

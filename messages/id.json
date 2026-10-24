@@ -1,0 +1,42 @@
+{
+  "Header": { "title": "ridshowcase", "subtitle": "Jelajahi aplikasi web & proyek buatan saya" },
+  "Search": { "placeholder": "Cari proyek atau tech stack..." },
+  "Card": { "viewDetails": "Lihat Selengkapnya" },
+  "Detail": { "back": "Kembali ke Proyek", "techStack": "Tech Stack", "database": "Database", "liveDemo": "Live Demo", "contactMe": "Hubungi Saya" },
+  "Pagination": { "previous": "Sebelumnya", "next": "Selanjutnya", "page": "Halaman" }
+,
+  "Hero": {
+    "badge": "Portofolio & Showcase",
+    "title": "Membangun Pengalaman Web Modern",
+    "subtitle": "Jelajahi koleksi proyek full-stack, aplikasi web interaktif, dan karya digital buatan saya.",
+    "scrollDown": "Scroll ke bawah untuk melihat"
+  },
+  "Catalog": {
+    "title": "Showcase Proyek",
+    "subAll": "Menampilkan semua proyek buatan saya",
+    "subSearch": "Hasil pencarian untuk \"{query}\"",
+    "count": "{count} Proyek Ditemukan",
+    "empty": "Tidak ada proyek yang sesuai dengan pencarian."
+  },
+  "Search": {
+    "placeholder": "Cari proyek, tech stack (Next.js, Tailwind)..."
+  },
+  "Card": {
+    "viewDetails": "Lihat Selengkapnya"
+  },
+  "Detail": {
+    "back": "Kembali ke Proyek",
+    "techStack": "Tech Stack",
+    "database": "Database",
+    "liveDemo": "Lihat Demo",
+    "contactMe": "Hubungi Saya"
+  },
+  "WhatsApp": {
+    "message": "Halo, apakah aplikasi web \"{title}\" ({url}) ini tersedia?"
+  },
+  "Pagination": {
+    "previous": "Sebelumnya",
+    "next": "Selanjutnya",
+    "page": "Halaman"
+  }
+}
