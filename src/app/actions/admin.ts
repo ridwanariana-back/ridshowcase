@@ -6,8 +6,7 @@ import { db } from '@/db';
 import { projects } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
-import fs from 'fs/promises';
-import path from 'path';
+import { put, del } from '@vercel/blob';
 
 // --- AUTH ---
 export async function loginAdmin(formData: FormData): Promise<void> {
@@ -31,21 +30,14 @@ export async function logoutAdmin(): Promise<void> {
   redirect('/admin/login');
 }
 
-// --- HELPER UNTUK HAPUS FILE GAMBAR DARI FOLDER PUBLIC ---
+// --- HELPER UNTUK HAPUS FILE GAMBAR DARI VERCEL BLOB ---
 async function removeImageFile(imageUrl: string) {
-  // Abaikan kalau default image atau URL kosong
-  if (!imageUrl || imageUrl === '/projects/default.jpg') return;
+  if (!imageUrl || imageUrl === '/projects/default.jpg' || !imageUrl.startsWith('http')) return;
 
   try {
-    // Ambil path lengkap file di server/komputer
-    const filePath = path.join(process.cwd(), 'public', imageUrl);
-    
-    // Cek apakah file benar-benar ada di sistem, lalu hapus
-    await fs.access(filePath);
-    await fs.unlink(filePath);
+    await del(imageUrl);
   } catch (err) {
-    // Abaikan jika file tidak ditemukan
-    console.log('File gambar tidak ditemukan atau gagal dihapus:', imageUrl);
+    console.log('Gagal menghapus file blob:', imageUrl);
   }
 }
 
@@ -59,14 +51,10 @@ export async function addProject(formData: FormData): Promise<void> {
   let imageUrl = '/projects/default.jpg';
 
   if (imageFile && imageFile.size > 0) {
-    const bytes = await imageFile.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const fileName = `${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`;
-    const uploadDir = path.join(process.cwd(), 'public', 'projects');
-
-    await fs.mkdir(uploadDir, { recursive: true });
-    await fs.writeFile(path.join(uploadDir, fileName), buffer);
-    imageUrl = `/projects/${fileName}`;
+    const blob = await put(`projects/${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`, imageFile, {
+      access: 'public',
+    });
+    imageUrl = blob.url;
   }
 
   await db.insert(projects).values({
@@ -86,7 +74,7 @@ export async function addProject(formData: FormData): Promise<void> {
   redirect('/admin/projects');
 }
 
-// --- UPDATE PROJECT (OTOMATIS HAPUS GAMBAR LAMA JIKA ADA GAMBAR BARU) ---
+// --- UPDATE PROJECT ---
 export async function updateProject(id: number, oldImageUrl: string, formData: FormData): Promise<void> {
   const title = formData.get('title') as string;
   const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -95,18 +83,12 @@ export async function updateProject(id: number, oldImageUrl: string, formData: F
 
   let imageUrl = oldImageUrl;
 
-  // Jika user mengupload file gambar baru
   if (imageFile && imageFile.size > 0) {
-    const bytes = await imageFile.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const fileName = `${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`;
-    const uploadDir = path.join(process.cwd(), 'public', 'projects');
+    const blob = await put(`projects/${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`, imageFile, {
+      access: 'public',
+    });
+    imageUrl = blob.url;
 
-    await fs.mkdir(uploadDir, { recursive: true });
-    await fs.writeFile(path.join(uploadDir, fileName), buffer);
-    imageUrl = `/projects/${fileName}`;
-
-    // Hapus file gambar lama agar tidak jadi sampah di folder public
     await removeImageFile(oldImageUrl);
   }
 
@@ -127,16 +109,12 @@ export async function updateProject(id: number, oldImageUrl: string, formData: F
   redirect('/admin/projects');
 }
 
-// --- DELETE PROJECT (OTOMATIS HAPUS GAMBAR DARI FOLDER PUBLIC) ---
+// --- DELETE PROJECT ---
 export async function deleteProject(id: number): Promise<void> {
-  // 1. Cari data proyek di DB untuk mendapatkan path gambar
   const [project] = await db.select().from(projects).where(eq(projects.id, id)).limit(1);
 
   if (project) {
-    // 2. Hapus file gambarnya dari folder public/projects
     await removeImageFile(project.imageUrl);
-
-    // 3. Hapus data dari database Neon
     await db.delete(projects).where(eq(projects.id, id));
   }
 
