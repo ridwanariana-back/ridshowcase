@@ -1,5 +1,5 @@
 {
-  "Header": { "title": "ridshowcase", "subtitle": "Jelajahi aplikasi web & proyek buatan saya" },
+  "Header": { "title": "ridshowcase","mainPortfolio": "Portofolio Utama", "subtitle": "Jelajahi aplikasi web & proyek buatan saya" },
   "Search": { "placeholder": "Cari proyek atau tech stack..." },
   "Card": { "viewDetails": "Lihat Selengkapnya" },
   "Detail": { "back": "Kembali ke Proyek", "techStack": "Tech Stack", "database": "Database", "liveDemo": "Live Demo", "contactMe": "Hubungi Saya" },
@@ -38,5 +38,14 @@
     "previous": "Sebelumnya",
     "next": "Selanjutnya",
     "page": "Halaman"
+  },
+  "Banner": {
+    "title": "Ingin tahu lebih banyak tentang saya?",
+    "subtitle": "Kunjungi portofolio utama saya untuk melihat profil lengkap, resume, keahlian, dan perjalanan karier.",
+    "button": "Kunjungi Portofolio Utama"
+  },
+  "Footer": {
+    "copyright": "Dibuat menggunakan Next.js, Tailwind CSS, & Neon PostgreSQL.",
+    "portfolioLink": "Website Portofolio Utama"
   }
 }

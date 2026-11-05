@@ -1,5 +1,5 @@
 {
-  "Header": { "title": "ridshowcase", "subtitle": "Discover my web applications & projects" },
+  "Header": { "title": "ridshowcase","mainPortfolio": "Main Portfolio",  "subtitle": "Discover my web applications & projects" },
   "Search": { "placeholder": "Search projects or tech stacks..." },
   "Card": { "viewDetails": "View Details" },
   "Detail": { "back": "Back to Projects", "techStack": "Tech Stack", "database": "Database", "liveDemo": "Live Demo", "contactMe": "Contact Me" },
@@ -38,6 +38,15 @@
     "previous": "Previous",
     "next": "Next",
     "page": "Page"
+  },
+  "Banner": {
+    "title": "Want to know more about me?",
+    "subtitle": "Visit my main portfolio to see my full profile, resume, skills, and personal journey.",
+    "button": "Visit Main Portfolio"
+  },
+  "Footer": {
+    "copyright": "Built with Next.js, Tailwind CSS, & Neon PostgreSQL.",
+    "portfolioLink": "Main Portfolio Website"
   }
 
 }
